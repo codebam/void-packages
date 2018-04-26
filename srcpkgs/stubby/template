@@ -1,0 +1,23 @@
+# Template file for 'stubby'
+pkgname=stubby
+version=0.2.2
+revision=1
+build_style=gnu-configure
+makedepends="getdns-devel libyaml-devel automake"
+short_desc="DNS Privacy stub resolver"
+maintainer="codebam <codebam@riseup.net>"
+license="BSD-3-Clause"
+homepage="https://github.com/getdnsapi/stubby"
+distfiles="${homepage}/archive/v${version}.tar.gz"
+checksum="d1418d2c4df3b2f32fac668423630f07dbfb38f6f8d402ddfda9304f16263b03"
+conf_files="/etc/stubby/stubby.yml"
+
+pre_configure() {
+	autoreconf -fi
+}
+
+post_install() {
+	vlicense COPYING
+	vmkdir /usr/share/examples/stubby/
+	mv ${DESTDIR}/etc/stubby/stubby.yml.example ${DESTDIR}/usr/share/examples/stubby/
+}
